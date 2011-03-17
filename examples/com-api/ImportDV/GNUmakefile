@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# $Id: GNUmakefile,v 1.8 2009/12/01 08:00:19 stuart_hc Exp $ $Name:  $
+# $Id: GNUmakefile,v 1.9 2011/03/17 19:11:31 philipn Exp $ $Name:  $
 #
 # The contents of this file are subject to the AAF SDK Public Source
 # License Agreement Version 2.0 (the "License"); You may not use this
@@ -50,12 +50,12 @@ ifdef FFMPEG_PATH
 	DV_Based_25Mbps_525_60 \
 	DV_Based_50Mbps_625_50 \
 	DV_Based_50Mbps_525_60 \
-	SMPTE_D10_625x50I_50Mbps \
-	SMPTE_D10_525x5994I_50Mbps \
-	SMPTE_D10_625x50I_40Mbps \
-	SMPTE_D10_525x5994I_40Mbps \
-	SMPTE_D10_625x50I_30Mbps \
-	SMPTE_D10_525x5994I_30Mbps \
+	SMPTE_D10_50Mbps_625x50I \
+	SMPTE_D10_50Mbps_525x5994I \
+	SMPTE_D10_40Mbps_625x50I \
+	SMPTE_D10_40Mbps_525x5994I \
+	SMPTE_D10_30Mbps_625x50I \
+	SMPTE_D10_30Mbps_525x5994I \
 	NoCompression \
 	; do rm -f raw.yuv; echo $(TEST_CMD) -d ../ExportDV/ExportDV_$$f.aaf; $(TEST_CMD) -d ../ExportDV/ExportDV_$$f.aaf || exit 1; done
 endif
