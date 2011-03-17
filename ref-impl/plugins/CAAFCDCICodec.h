@@ -5,7 +5,7 @@
 
 //=---------------------------------------------------------------------=
 //
-// $Id: CAAFCDCICodec.h,v 1.10 2009/11/30 13:10:16 stuart_hc Exp $ $Name:  $
+// $Id: CAAFCDCICodec.h,v 1.11 2011/03/17 19:05:10 philipn Exp $ $Name:  $
 //
 // The contents of this file are subject to the AAF SDK Public Source
 // License Agreement Version 2.0 (the "License"); You may not use this
@@ -54,6 +54,10 @@ EXTERN_C const CLSID CLSID_AAFCDCICodec;
 
 
 #ifdef USE_FFMPEG
+
+#if !defined(UINT64_C)
+#define UINT64_C AAFCONSTUINT64
+#endif
 
 extern "C" {
 #include <libavcodec/avcodec.h>
