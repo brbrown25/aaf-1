@@ -1,6 +1,6 @@
 //=---------------------------------------------------------------------=
 //
-// $Id: CAAFCDCICodec.cpp,v 1.38 2009/11/30 13:10:16 stuart_hc Exp $ $Name:  $
+// $Id: CAAFCDCICodec.cpp,v 1.39 2011/03/17 19:06:40 philipn Exp $ $Name:  $
 //
 // The contents of this file are subject to the AAF SDK Public Source
 // License Agreement Version 2.0 (the "License"); You may not use this
@@ -1583,9 +1583,20 @@ HRESULT STDMETHODCALLTYPE CAAFCDCICodec::ReadSamples(
 
 			// Decode one frame
 			int dec_picture_ok = 0;
-			int bytes_dec = avcodec_decode_video(_decoder->codec_context, _decoder->outputFrame, &dec_picture_ok,
-													_decoder->inputBuffer, params->storedSize);
-    
+			int bytes_dec;
+#if LIBAVCODEC_VERSION_INT >= ((52<<16)+(25<<8)+0)
+			// avcodec_decode_video was deprecated in favour of avcodec_decode_video2
+			AVPacket packet;
+			av_init_packet(&packet);
+			packet.data = _decoder->inputBuffer;
+			packet.size = params->storedSize;
+			bytes_dec = avcodec_decode_video2(_decoder->codec_context, _decoder->outputFrame, &dec_picture_ok,
+												&packet);
+#else
+			bytes_dec = avcodec_decode_video(_decoder->codec_context, _decoder->outputFrame, &dec_picture_ok,
+												_decoder->inputBuffer, params->storedSize);
+#endif
+
 			if (bytes_dec <= 0 || !dec_picture_ok) 
 			{
 				fprintf(stderr, "avcodec_decode_video() Error decoding video\n");
