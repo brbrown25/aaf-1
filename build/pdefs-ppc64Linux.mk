@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# $Id: pdefs-ppc64Linux.mk,v 1.9 2011/04/14 14:06:33 philipn Exp $ $Name:  $
+# $Id: pdefs-ppc64Linux.mk,v 1.10 2011/04/14 14:48:05 philipn Exp $ $Name:  $
 #
 # The contents of this file are subject to the AAF SDK Public Source
 # License Agreement Version 2.0 (the "License"); You may not use this
@@ -115,12 +115,12 @@ ifndef LD_DYN_LIB
     LD_DYN_LIB = $(CC) -shared
 endif
 
-# For GNU/Linux the UUID library is provided by e2fsprogs-devel (.rpm based systems)
-# or uuid-dev (.deb based systems).
+# For GNU/Linux the UUID library is provided by uuid-devel, uuid-dev or
+# e2fsprogs-devel
 ifndef UUIDLIB
     UUIDLIB_PATH := $(shell for f in /usr/local/lib /usr/lib /lib /usr/lib64 /lib64; do test -e $$f/libuuid.a -o -e $$f/libuuid.so && echo $$f && break; done)
     ifeq "$(UUIDLIB_PATH)" ""
-        $(error Required library libuuid.a or libuuid.so not found - install e2fsprogs-devel .rpm or uuid-dev .deb)
+        $(error Required library libuuid.a or libuuid.so not found - install uuid-devel, uuid-dev or e2fsprogs-devel)
     endif
 
     UUIDLIB = -luuid
